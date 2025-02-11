@@ -70,7 +70,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void closeAccount(Long accountNumber) {
-        getAccountDetailsByAccountNumber(accountNumber);
+        Optional<Account> account = repo.findById(accountNumber);
+        if (account.isEmpty()) {
+            throw new RuntimeException("Account is not present");
+        }
+        //Account account_found;
+       // account_found = account.get();
+        //getAccountDetailsByAccountNumber(accountNumber);
         repo.deleteById(accountNumber);
     }
 }
